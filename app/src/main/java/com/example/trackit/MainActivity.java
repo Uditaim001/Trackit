@@ -3,6 +3,7 @@ package com.example.trackit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,31 +32,32 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Setup Window Insets (if needed)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Initialize ViewModel
+
         expenseViewModel = new ViewModelProvider(this, (ViewModelProvider.Factory)ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(ExpenseViewModel.class);
 
-        // Setup RecyclerView
         binding.RV.setLayoutManager(new LinearLayoutManager(this));
         binding.RV.setHasFixedSize(true);
         Rvadapter rvadapter = new Rvadapter();
         binding.RV.setAdapter(rvadapter);
 
-        // Observe data from ViewModel
         expenseViewModel.getdata().observe(this, new Observer<List<Expensecard>>() {
             @Override
             public void onChanged(List<Expensecard> expensecards) {
+                String size=String.valueOf(expensecards.size());
+                Log.d("MainActivity", "LiveData changed: " + expensecards.toString());
+                Toast.makeText(MainActivity.this, size, Toast.LENGTH_SHORT).show();
                 rvadapter.submitList(expensecards);
             }
         });
 
-        // Set up button click listener
+
         binding.floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             String amount = data.getStringExtra("Amount");
             Expensecard expensecard = new Expensecard(amount, type);
             expenseViewModel.Insert(expensecard);
-            Toast.makeText(this, "Expense Added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,  "Inserted: " + amount + ", " + type, Toast.LENGTH_SHORT).show();
         }
     }
 }

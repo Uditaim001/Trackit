@@ -2,6 +2,7 @@ package com.example.trackit;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -32,6 +33,8 @@ public class Exprepo {
         @Override
         protected Void doInBackground(Expensecard... expensecards) {
             exp.insert(expensecards[0]);
+            Log.d("Exprepo", "Inserted into DB: " + expensecards[0].getType() + ", " + expensecards[0].getAmount());
+
             return null;
         }
     }

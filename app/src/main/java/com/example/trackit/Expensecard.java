@@ -3,7 +3,7 @@ package com.example.trackit;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "table")
+@Entity(tableName = "expense_table")
 public class Expensecard {
     @PrimaryKey(autoGenerate = true)
     private int id;

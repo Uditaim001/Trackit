@@ -17,6 +17,6 @@ public interface Exp {
     public void change(Expensecard expense);
     @Delete
     public void delete(Expensecard expense);
-    @Query("Select * from `table`")
+    @Query("Select * from expense_table")
     public LiveData<List<Expensecard>> show_all();
 }
