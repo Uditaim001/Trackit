@@ -1,9 +1,11 @@
 package com.example.trackit;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -39,9 +41,10 @@ public class Rvadapter extends ListAdapter<Expensecard,Rvadapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-         Expensecard expensecard=getItem(position);
+         Expensecard expensecard=getExpense(position);
          holder.rvStyleBinding.textView2.setText(expensecard.getType());
          holder.rvStyleBinding.textView3.setText(expensecard.getAmount());
+        Log.d("Rvadapter", "Binding position " + position + ": " + expensecard.getType() + ", " + expensecard.getAmount());
     }
     public Expensecard getExpense(int position){
         return getItem(position);
